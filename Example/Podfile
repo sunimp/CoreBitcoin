@@ -1,13 +1,10 @@
 use_frameworks!
 
-platform :ios, '9.0'
+platform :ios, '12.0'
 
 target 'CoreBitcoin_Example' do
+  
   pod 'CoreBitcoin', :path => '../'
+  pod 'GRKOpenSSLFramework'
 
-  target 'CoreBitcoin_Tests' do
-    inherit! :search_paths
-
-    
-  end
 end

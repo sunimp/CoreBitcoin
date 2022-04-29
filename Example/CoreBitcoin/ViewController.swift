@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreBitcoin
+import openssl
 
 class ViewController: UIViewController {
 
