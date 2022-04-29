@@ -1,11 +1,11 @@
 PODS:
   - CoreBitcoin (0.6.9):
-    - GRKOpenSSLFramework
+    - GRKOpenSSLFramework (= 1.0.2.20.2)
   - GRKOpenSSLFramework (1.0.2.20.2)
 
 DEPENDENCIES:
   - CoreBitcoin (from `../`)
-  - GRKOpenSSLFramework
+  - GRKOpenSSLFramework (= 1.0.2.20.2)
 
 SPEC REPOS:
   trunk:
@@ -16,9 +16,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CoreBitcoin: 40075758cf0c1769732b6975e65d6b1245f364b3
+  CoreBitcoin: e0ce757e92433b650dbf08b7e418d4e8fb380064
   GRKOpenSSLFramework: 01e3dd58a1d865111ac9439841119ff91a26e1f2
 
-PODFILE CHECKSUM: 0ae786d7b450599eeab3fc83ad3d64c4eb3c0575
+PODFILE CHECKSUM: 186188ef93e43db92de2ebaf7716960d62b60c75
 
 COCOAPODS: 1.11.3
