@@ -7,6 +7,7 @@
 @class BTCTransaction;
 @class BTCTransactionOutput;
 
+NS_ASSUME_NONNULL_BEGIN
 // Transaction input (aka "txin") represents a reference to another transaction's output.
 // Reference is defined by tx hash + tx output index.
 // Signature script is used to prove ownership of the corresponding tx output.
@@ -28,6 +29,8 @@
 // Script that proves ownership of the previous transaction output.
 // This property is nil for coinbase inputs. See `coinbaseData` for raw binary data.
 @property(nonatomic) BTCScript* signatureScript;
+
+@property(nonatomic, nullable) BTCScript* witnessData;
 
 // Raw coinbase data if this input is coinbase.
 // If `coinbaseData` is not nil, then `signatureScript` is nil.
@@ -82,3 +85,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

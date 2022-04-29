@@ -66,7 +66,7 @@ static uint32_t BTCEMFullTargetForCompactTarget(uint8_t compactTarget);
     CC_SHA256_Update(&ctx256, _decryptedData.bytes, (CC_LONG)_decryptedData.length);
     CC_SHA256_Update(&ctx256, recipientPubKey.bytes, (CC_LONG)recipientPubKey.length);
     CC_SHA256_Final(digest256, &ctx256);
-
+    
     NSMutableData* seed = [NSMutableData dataWithBytes:digest256 length:CC_SHA256_DIGEST_LENGTH];
     
     BTCSecureMemset(digest256, 0, CC_SHA256_DIGEST_LENGTH);
@@ -126,7 +126,7 @@ static uint32_t BTCEMFullTargetForCompactTarget(uint8_t compactTarget);
         nonce++;
         
         NSData* privkey = [NSData dataWithBytesNoCopy:digest256 length:CC_SHA256_DIGEST_LENGTH freeWhenDone:NO]; // not copying data as it'll be copied into bignum right away anyway.
-
+        
         BTCKey* nonceKey = [[BTCKey alloc] initWithPrivateKey:privkey];
         
         NSData* pubkey = [nonceKey compressedPublicKey];
@@ -154,13 +154,13 @@ static uint32_t BTCEMFullTargetForCompactTarget(uint8_t compactTarget);
         CC_SHA256_Init(&ctx256);
         CC_SHA256_Update(&ctx256, [pointX bytes], (CC_LONG)[pointX length]);
         CC_SHA256_Final(digest256, &ctx256);
-
+        
         int blockSize = kCCBlockSizeAES128;
         int encryptedDataCapacity = (int)(_decryptedData.length / blockSize + 1) * blockSize;
         NSMutableData* encryptedData = [[NSMutableData alloc] initWithLength:encryptedDataCapacity];
         
         size_t dataOutMoved = 0;
-                
+        
         CCCryptorStatus cryptstatus = CCCrypt(
                                               kCCEncrypt,                  // CCOperation op,         /* kCCEncrypt, kCCDecrypt */
                                               kCCAlgorithmAES,             // CCAlgorithm alg,        /* kCCAlgorithmAES128, etc. */
@@ -200,7 +200,7 @@ static uint32_t BTCEMFullTargetForCompactTarget(uint8_t compactTarget);
         
         // Raw encrypted data + variable-length data length prefix.
         [messageData appendData:[BTCProtocolSerialization dataForVarString:encryptedData]];
-
+        
         // Add 16-byte checksum which is SHA256^2 of the shared secret + decrypted message
         CC_SHA256_Init(&ctx256);
         CC_SHA256_Update(&ctx256, digest256, CC_SHA256_DIGEST_LENGTH);
@@ -209,7 +209,7 @@ static uint32_t BTCEMFullTargetForCompactTarget(uint8_t compactTarget);
         CC_SHA256_Init(&ctx256);
         CC_SHA256_Update(&ctx256, digest256, CC_SHA256_DIGEST_LENGTH);
         CC_SHA256_Final(digest256, &ctx256);
-
+        
         [messageData appendBytes:digest256 length:BTCFancyEncryptedMessageChecksumLength];
         
         BTCSecureMemset(&ctx256, 0, sizeof(ctx256));
@@ -303,7 +303,7 @@ static uint32_t BTCEMFullTargetForCompactTarget(uint8_t compactTarget);
         }
         
         // Fill in the properties.
-            
+        
         _difficultyTarget = target;
         
         _timestamp = OSSwapBigToHostConstInt32(*(uint32_t*)(msgbytes + 6));
@@ -332,15 +332,15 @@ static uint32_t BTCEMFullTargetForCompactTarget(uint8_t compactTarget);
         offset += pubkeyLength;
         
         if (datalength <= offset) return nil;
-
+        
         BTCKey* nonceKey = [[BTCKey alloc] initWithPublicKey:pubkeyNonceData];
         
         _nonceKey = nonceKey;
         
         // To reconstruct the shared secret, this nonceKey should be multiplied by our private key.
         // This will happen in -decryptedDataWithKey
-
-        NSUInteger encodedMessageLength = 0; // contains both the encrypted message length and the length of its length prefix.
+        
+        NSInteger encodedMessageLength = 0; // contains both the encrypted message length and the length of its length prefix.
         _encryptedData = [BTCProtocolSerialization readVarStringFromData:[data subdataWithRange:NSMakeRange(offset, datalength - offset)] readBytes:&encodedMessageLength];
         
         if (_encryptedData == nil) return nil;
@@ -384,7 +384,7 @@ static uint32_t BTCEMFullTargetForCompactTarget(uint8_t compactTarget);
     CC_SHA256_Init(&ctx256);
     CC_SHA256_Update(&ctx256, [pointX bytes], (CC_LONG)[pointX length]);
     CC_SHA256_Final(digest256, &ctx256);
-
+    
     // 2. Decrypt message.
     
     int blockSize = kCCBlockSizeAES128;
@@ -428,7 +428,7 @@ static uint32_t BTCEMFullTargetForCompactTarget(uint8_t compactTarget);
         BTCSecureMemset(digest256, 0, CC_SHA256_DIGEST_LENGTH);
         return nil;
     }
-
+    
     // 3. Verify the checksum.
     
     CC_SHA256_Init(&ctx256);

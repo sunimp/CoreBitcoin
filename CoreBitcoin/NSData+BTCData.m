@@ -10,13 +10,13 @@
 #pragma mark - Hash Functions
 
 
-- (NSData *) SHA1 { return BTCSHA1(self); }
-- (NSData *) SHA256 { return BTCSHA256(self); }
-- (NSData *) BTCHash256 { return BTCHash256(self); }
+- (NSData*) SHA1 { return BTCSHA1(self); }
+- (NSData*) SHA256 { return BTCSHA256(self); }
+- (NSData*) BTCHash256 { return BTCHash256(self); }
 
 #if BTCDataRequiresOpenSSL
-- (NSData *) RIPEMD160 { return BTCRIPEMD160(self); }
-- (NSData *) BTCHash160 { return BTCHash160(self); }
+- (NSData*) RIPEMD160 { return BTCRIPEMD160(self); }
+- (NSData*) BTCHash160 { return BTCHash160(self); }
 #endif
 
 
@@ -25,22 +25,21 @@
 #pragma mark - Formatting
 
 
-- (NSString *)hex {
+- (NSString*) hex {
     return BTCHexFromData(self);
 }
 
-- (NSString *)uppercaseHex {
+- (NSString*) uppercaseHex {
     return BTCUppercaseHexFromData(self);
 }
 
-
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-implementations"
-- (NSString *)hexString {
+- (NSString*) hexString {
     return BTCHexFromData(self);
 }
 
-- (NSString *)hexUppercaseString {
+- (NSString*) hexUppercaseString {
     return BTCUppercaseHexFromData(self);
 }
 #pragma clang diagnostic pop
@@ -53,16 +52,16 @@
 
 
 
-+ (NSMutableData *)encryptData:(NSData*)data key:(NSData*)key iv:(NSData*)initializationVector {
++ (NSMutableData*) encryptData:(NSData*)data key:(NSData*)key iv:(NSData*)initializationVector {
     return [self cryptData:data key:key iv:initializationVector operation:kCCEncrypt];
 }
 
-+ (NSMutableData *)decryptData:(NSData*)data key:(NSData*)key iv:(NSData*)initializationVector {
++ (NSMutableData*) decryptData:(NSData*)data key:(NSData*)key iv:(NSData*)initializationVector {
     return [self cryptData:data key:key iv:initializationVector operation:kCCDecrypt];
 }
 
 
-+ (NSMutableData *)cryptData:(NSData*)data key:(NSData*)key iv:(NSData*)iv operation:(CCOperation)operation {
++ (NSMutableData*) cryptData:(NSData*)data key:(NSData*)key iv:(NSData*)iv operation:(CCOperation)operation {
     if (!data || !key) return nil;
     
     int blockSize = kCCBlockSizeAES128;

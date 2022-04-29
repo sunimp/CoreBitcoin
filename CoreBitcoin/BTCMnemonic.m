@@ -121,7 +121,7 @@ static inline NSUInteger BTCMnemonicIntegerFrom11Bits(uint8_t* buf, int bitIndex
             return nil;
         }
 
-        NSUInteger encodedEntropyLength = 0;
+        NSInteger encodedEntropyLength = 0;
         _entropy = [BTCProtocolSerialization
                     readVarStringFromData:[data subdataWithRange:NSMakeRange(offset, data.length - offset)]
                     readBytes:&encodedEntropyLength];
@@ -136,7 +136,7 @@ static inline NSUInteger BTCMnemonicIntegerFrom11Bits(uint8_t* buf, int bitIndex
             return nil;
         }
 
-        NSUInteger encodedPasswordLength = 0;
+        NSInteger encodedPasswordLength = 0;
         NSData* passwordData = [BTCProtocolSerialization
                                 readVarStringFromData:[data subdataWithRange:NSMakeRange(offset, data.length - offset)]
                                 readBytes:&encodedPasswordLength];

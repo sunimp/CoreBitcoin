@@ -18,7 +18,8 @@ Pod::Spec.new do |s|
   s.author       = { "Yang Guang" => "holaux@gmail.com" }
   s.ios.deployment_target = '12.0'
   s.source       = { :git => "https://github.com/sunimp/CoreBitcoin.git", :tag => s.version.to_s }
-  s.source_files = 'CoreBitcoin/*.{h,m,c}'
+  s.source_files = 'CoreBitcoin/*.{h,m}'
+  s.exclude_files = ['CoreBitcoin/*+Tests.{h,m}', 'CoreBitcoin/BTCScriptTestData.h']
   s.requires_arc = true
   s.framework    = 'Foundation'
   s.ios.framework = 'UIKit'

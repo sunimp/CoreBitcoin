@@ -59,11 +59,10 @@
 #import "BTCTransactionInput.h"
 #import "BTCTransactionOutput.h"
 #import "BTCUnitsAndLimits.h"
-#import "CoreBitcoin+Categories.h"
 #import "CoreBitcoin.h"
 #import "NS+BTCBase58.h"
 #import "NSData+BTCData.h"
-#import "SwiftBridgingHeader.h"
+#import "segwit_addr.h"
 
 FOUNDATION_EXPORT double CoreBitcoinVersionNumber;
 FOUNDATION_EXPORT const unsigned char CoreBitcoinVersionString[];
